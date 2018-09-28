@@ -13,7 +13,7 @@ int main(void)
     P1OUT = BIT3;   // Connects internal resistor to power (making it a pull-up)
 
     P1IE = BIT3;    // Set P1.3 as interrupt pin (interrupts are triggered w/ changes to this pin)
-    P1IFG &= ~BIT3;
+    P1IFG &= ~BIT3;	// Clear Interrupt Flag
 
     __enable_interrupt();   // Enables interrupt algorithm
 
