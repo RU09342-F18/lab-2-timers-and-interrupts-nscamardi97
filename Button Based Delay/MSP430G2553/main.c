@@ -20,8 +20,8 @@ int main(void)
     P1IES |= BIT3;   // Set P1.3 to interrupt on falling edge (high to low transition)
 
     TACCTL0 = CCIE; // Capture Compare Interrupt Enabled
-    TACCR0 = 100;   // Set Capture Compare Register
-    TACTL = TASSEL_1 + MC_1 + ID_3; // Timer A Control: ACLK, Up Mode, Internal Divider (Divide ACLK by 8)
+    TACCR0 = 300;   // Set Capture Compare Register
+    TACTL = TASSEL_1 + MC_1; // Timer A Control: ACLK, Up Mode
 
 
     __enable_interrupt();   // Enables interrupt algorithm
