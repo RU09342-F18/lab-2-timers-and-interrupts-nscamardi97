@@ -1,12 +1,7 @@
 # Button Based Delay
-Now that you have begun to familiarize yourself with the TIMER modules, why don't we make an interesting change to our code from the last lab.
+The functionality behind button based delay toggles the LED to blink at different rates based on how long the button is pushed. The Red LED initially blinks at a rate of approximately 10 Hz. Once the button is pressed and held, the rate at which the LED blinks is changed to the amount of seconds the button was held down for.
 
-## Task
-Setup your microcontroller to initially blink and LED at a rate of 10Hz upon restarting or powering up. Then utilizing one of the buttons on board, a user should be able to set the delay or blinking rate of the LED by holding down a button. The duration in which the button is depressed should then become the new rate at which the LED blinks. As previously stated, you most likely will want to take advantage of the fact that TIMER modules exist and see if you can let them do a bulk of the work for you.
+# Code for the MSP430G2553
+Once again, the watchdog timer is disabled and the clock is set to use the internal oscillator. The pins are all assigned to either output or input, with the button being the only input and the Red LED being the output. The button was configured using a pull up resistor in order to obtain proper functionality. The timer was configured to use ACLK and Up mode, the capture compare interrupt was enabled, and the capture compare register received a value of 300. There were two interrupt service routines for this code, one for the port and one for the timer. The timer routine was simply controlling when to toggle on the LED. The port routine was somewhat more complex as it had different conditions on which to perform different functions. When a falling edge was detected on P1.3 (button), the timer was first cleared, then set to continuous mode and divided by 8. The interrupt edge select was then set to detect a rising edge, so that an interrupt could be triggered when the button was released. This ultimately allowed for the amount of time the button was held down to be recorded. After that, the capture compare register was set to receive the value of the Timer A0 register. The timer was then reconfigured to up mode and the edge select was set back to falling edge detection. Finally, the interrupt flags are reset once again so the next inerrupt can be detected.
 
-### Extra Work
-## Reset Button
-What is a piece of electronics without a reset button? Instead of relying on resetting your processor using the built in reset circuitry, why not instead use another button to reset the rate back to 10Hz.
-
-## Button Based Hertz
-Most likely using two buttons, what if instead of making a delay loop based on the time, the user could instead enter a mode where the number of times they pressed the button would become the number in Hz of the blinking rate? How do you think you would implement that with just one button?
+# Code for the MSP430F5529
