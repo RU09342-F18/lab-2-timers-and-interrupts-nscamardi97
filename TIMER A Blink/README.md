@@ -6,7 +6,7 @@ The first step is to disable the built-in watchdog timer. There is a line of cod
 
 BCSCTL3 = LFXT1S_2;
  
-The line of code forces ACLK to ignore the external crystal on the board and to use the internal oscillator instead. This is required for proper functionality. The LED pins are then set to the output direction using the P1DIR macro, with P1.0 being set ON initially and P1.6 being set to off intitially. This was an arbitrary design feature that was included so that the LEDs would be out of sync.
+The line of code forces ACLK to ignore the external crystal on the board and to use the internal oscillator instead. This is required for proper functionality. The LED pins are then set to the output direction using the P1DIR macro, with P1.0 being set ON initially and P1.6 being set to off initially. This was an arbitrary design feature that was included so that the LEDs would be out of sync.
  
 Next, Timer A0 had to be configured using TACTL. This allows the user to control different aspects of the timer, such as the clock being used, which mode to set the timer to, etc. For my code, the design choice I implemented was to use ACLK, due to its slower frequency. The timer was also set to up mode and the clock was divided by a factor of 4. All of this is accomplished with the following line:
  
@@ -16,4 +16,3 @@ The same steps were repeated to configure Timer A1 and all of the configurations
  
 # Code for the MSP430FR2311
 The FR2311 code is again extremely similar to that of the G2553. However, this board does not have Timer A so the Timer B peripheral was used instead. Configuration was pretty much the same, with the exception of a few pin changes due to the different board. For all intents and purposes, Timer B served the same function as Timer A did for the G2553.
- 
